@@ -1,0 +1,21 @@
+import { Text, Pressable } from 'dripsy';
+import TouchableButtonProps from 'app/features/components/TouchableButton/types';
+
+export const TouchableButton: React.FC<TouchableButtonProps> = ({
+  title,
+  onPress,
+  buttonsx = {
+    backgroundColor: '$appGreen',
+    padding: 10,
+    borderRadius: 5,
+    width: 250,
+  },
+  textsx = { color: '$textWhite', fontSize: 16, textAlign: 'center' },
+  disabled=false,
+}) => {
+  return (
+    <Pressable onPress={onPress} sx={buttonsx} disabled={disabled}>
+      <Text sx={textsx}>{title}</Text>
+    </Pressable>
+  );
+};
