@@ -5,13 +5,13 @@ export const TouchableButton: React.FC<TouchableButtonProps> = ({
   title,
   onPress,
   buttonsx = {
-    backgroundColor: '$appGreen',
+    backgroundColor: '$buttonBlue',
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 8,
     width: 250,
   },
   textsx = { color: '$textWhite', fontSize: 16, textAlign: 'center' },
-  disabled=false,
+  disabled = false,
 }) => {
   return (
     <Pressable onPress={onPress} sx={buttonsx} disabled={disabled}>
