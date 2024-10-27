@@ -2728,6 +2728,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@prisma/client@npm:^5.21.1":
+  version: 5.21.1
+  resolution: "@prisma/client@npm:5.21.1"
+  peerDependencies:
+    prisma: "*"
+  peerDependenciesMeta:
+    prisma:
+      optional: true
+  checksum: 4514e8805073c31ac91196870b732f191a911e64983857a7bd41638d30d6a75ac1dd79173a6d2ddf2cdf62546e4229936d27ba803a8bc82aad3c2c51f54288ec
+  languageName: node
+  linkType: hard
+
 "@prisma/debug@npm:5.21.1":
   version: 5.21.1
   resolution: "@prisma/debug@npm:5.21.1"
@@ -11092,6 +11104,7 @@ __metadata:
   resolution: "solito-expo-router@workspace:."
   dependencies:
     "@nandorojo/heroicons": ^0.3.0
+    "@prisma/client": ^5.21.1
     "@types/jsonwebtoken": ^9
     "@types/react": ~18.2.21
     "@types/react-native": ^0.72.2
