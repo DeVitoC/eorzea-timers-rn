@@ -19,3 +19,46 @@ model User {
   id   Int     @id @default(autoincrement())
   name String?
 }
+
+model GatheringNode {
+  id Int @id @default(autoincrement())
+  name String @unique
+  time Int?
+  location String
+  img String
+  description String
+  type String
+  source String
+  lvl Int
+  stars Int
+  x Float
+  y Float
+  expac Int
+  gathering Int
+}
+
+model FishingNode{
+  id Int @id @default(autoincrement())
+  name String @unique
+  time Int?
+  duration Int
+  location String
+  img String
+  description String
+  type String
+  source String
+  lvl Int
+  stars Int
+  x Float
+  y Float
+  expac Int
+  desynthLvl Int
+  desynthJob String
+  mooch Boolean
+  moochFrom String[]
+  isWeatherChain Boolean
+  weatherChain String[]
+  weather String[]
+  waterType String
+  gathering Int
+}
