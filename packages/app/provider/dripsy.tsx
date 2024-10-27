@@ -1,4 +1,4 @@
-import { DripsyProvider, makeTheme } from 'dripsy'
+import { DripsyProvider, makeTheme } from 'dripsy';
 
 const theme = makeTheme({
   // https://www.dripsy.xyz/usage/theming/create
@@ -9,12 +9,13 @@ const theme = makeTheme({
   },
   colors: {
     // Main App color pallege
-    $appGreen: '#01686f',
+    $appTeal: '#4cd4cb',
     $appMagenta: '#92374d',
     $appPlum: '#8c5383',
     $appSilver: '#c1b2ab',
     $appWhite: '#fffbfe',
     // Additional app colors
+    $buttonBlue: '#007AFF',
     // Text Colors
     $textWhite: '#ffffff',
     $textBlack: '#090909',
@@ -68,7 +69,7 @@ const theme = makeTheme({
     $30: 120,
   },
   breakpoints: ['440px', '640px', '880px', '1024px'],
-})
+});
 
 export function Dripsy({ children }: { children: React.ReactNode }) {
   return (
@@ -79,5 +80,5 @@ export function Dripsy({ children }: { children: React.ReactNode }) {
     >
       {children}
     </DripsyProvider>
-  )
+  );
 }

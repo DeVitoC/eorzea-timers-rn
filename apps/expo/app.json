@@ -1,15 +1,33 @@
 {
   "expo": {
-    "name": "solito-expo-router",
-    "slug": "solito-expo-router",
+    "name": "Eorzea Timers",
+    "slug": "eorzeatimers",
     "version": "1.0.0",
-    "scheme": "solito-expo-router",
+    "scheme": "eorzeatimers",
     "platforms": ["ios", "android"],
     "ios": {
-      "bundleIdentifier": "com.solito.expo-router"
+      "bundleIdentifier": "com.eorzeatimers.ios"
     },
     "plugins": [
-      "expo-router"
-    ]
+      "expo-router",
+      [
+        "expo-secure-store",
+        {
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
+        }
+      ]
+    ],
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#4cd4cb"
+    },
+    "userInterfaceStyle": "automatic",
+    "extra": {
+      "router": {
+        "origin": false
+      }
+    },
+    "owner": "eorzeatimers"
   }
 }
