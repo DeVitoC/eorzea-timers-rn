@@ -15,9 +15,10 @@ const theme = makeTheme({
     $appSilver: '#c1b2ab',
     $appWhite: '#fffbfe',
     // Additional app colors
-    $buttonBlue: '#007AFF',
+    $systemBlue: '#007AFF',
+    $backgroundWhite: '#fff',
     // Text Colors
-    $textWhite: '#ffffff',
+    $textWhite: '#fff',
     $textBlack: '#090909',
     // Alert Colors
     $alertOrange: '#FFAC00',

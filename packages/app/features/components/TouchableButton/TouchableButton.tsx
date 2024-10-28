@@ -5,7 +5,7 @@ export const TouchableButton: React.FC<TouchableButtonProps> = ({
   title,
   onPress,
   buttonsx = {
-    backgroundColor: '$buttonBlue',
+    backgroundColor: '$systemBlue',
     padding: 10,
     borderRadius: 8,
     width: 250,
