@@ -15,9 +15,7 @@ const TimeDisplay: React.FC<TimeDisplayProps> = memo(({ eorzeaTime }) => {
 
 const SelectCategory: React.FC = () => {
   const [eorzeaTime, setEorzeaTime] = useState<string>('');
-  const [profession, setProfession] = useState<string>('');
   const { push } = useRouter();
-  console.log('profession: ', profession);
 
   const updateTimer = useCallback(() => {
     const currentEorzeaTime = updateTime();
@@ -31,13 +29,12 @@ const SelectCategory: React.FC = () => {
   }, []);
 
   const handleButtonClick = (selectedProfession: string) => {
-    setProfession(selectedProfession);
+    push(`/${selectedProfession}`);
   };
 
   return (
     <View sx={styles.container}>
       <Text style={styles.eorzeaLabel}>EORZEA TIME</Text>
-      {/* <Text style={styles.timeLabel}>{eorzeaTime}</Text> */}
       <TimeDisplay eorzeaTime={eorzeaTime} />
       <Text sx={styles.title}>Choost a Profession:</Text>
       <View style={styles.buttonContainer}>
