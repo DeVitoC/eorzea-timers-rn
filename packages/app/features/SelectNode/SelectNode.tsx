@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { FlatList, Pressable, Text, TextInput, View } from 'dripsy';
-import {
-  Node,
-  Profession,
-  GatheringNodeController,
-} from 'app/features/SelectNode/SelectNodeTypes';
+import { Node } from 'app/features/SelectNode/SelectNodeTypes';
 import { ChevronLeft } from '@nandorojo/heroicons/24/solid';
 
-const SelectNode = () => {
+interface SelectNodesProps {
+  profession: string;
+}
+
+const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
   const [nodes, setNodes] = useState<Node[]>([]);
   const [searchText, setSearchText] = useState('');
 
