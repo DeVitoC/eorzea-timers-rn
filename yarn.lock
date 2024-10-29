@@ -2999,6 +2999,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-segmented-control/segmented-control@npm:^2.5.5":
+  version: 2.5.5
+  resolution: "@react-native-segmented-control/segmented-control@npm:2.5.5"
+  peerDependencies:
+    react: ">=16.0"
+    react-native: ">=0.62"
+  checksum: 148e5542d5eac417d1f3ca33bfd828a7bf38cd8615b0cfe0ca833c89d3f2ea54404b28bd29f954e0385620b782601d9a64b5a254fe83d2f4d25f7a1e22f4d77f
+  languageName: node
+  linkType: hard
+
 "@react-native/assets-registry@npm:^0.72.0":
   version: 0.72.0
   resolution: "@react-native/assets-registry@npm:0.72.0"
@@ -11124,6 +11134,7 @@ __metadata:
   dependencies:
     "@nandorojo/heroicons": ^0.3.0
     "@prisma/client": ^5.21.1
+    "@react-native-segmented-control/segmented-control": ^2.5.5
     "@types/jsonwebtoken": ^9
     "@types/react": ~18.2.21
     "@types/react-native": ^0.72.2
