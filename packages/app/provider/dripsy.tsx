@@ -17,6 +17,7 @@ const theme = makeTheme({
     // Additional app colors
     $systemBlue: '#007AFF',
     $backgroundWhite: '#fff',
+    $inputBackground: '#f0f0f0',
     // Text Colors
     $textWhite: '#fff',
     $textBlack: '#090909',
