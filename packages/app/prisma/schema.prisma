@@ -28,13 +28,11 @@ model GatheringNode {
   img String
   description String
   type String
-  source String
   lvl Int
   stars Int
   x Float
   y Float
   expac Int
-  gathering Int
 }
 
 model FishingNode{
@@ -60,5 +58,4 @@ model FishingNode{
   weatherChain String[]
   weather String[]
   waterType String
-  gathering Int
 }
