@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { FlatList, Pressable, Text, TextInput, View } from 'dripsy';
+import { FlatList, View } from 'dripsy';
 import { Node } from 'app/features/SelectNode/SelectNodeTypes';
-import { ChevronLeft } from '@nandorojo/heroicons/24/solid';
+import { useRouter } from 'solito/router';
+import Header from 'app/features/components/Header/Header';
+import SegmentedControl from 'app/features/components/SegmentedControl/SegmentedControl';
+import SearchBar from 'app/features/components/SearchBar/SearchBar';
 
 interface SelectNodesProps {
   profession: string;
@@ -9,23 +12,69 @@ interface SelectNodesProps {
 
 const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
   const [nodes, setNodes] = useState<Node[]>([]);
-  const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState<string>('');
+  const [expacIndex, setExpacIndex] = useState(0);
+  const [sortIndex, setSortIndex] = useState(0);
+  const { push } = useRouter();
+
+  const handleSelectExpac = (expac: number) => {
+    if (expac <= 0 || expac > 6) {
+      setExpacIndex(0);
+    } else {
+      setExpacIndex(expac);
+    }
+  };
+
+  const handleSelectSort = (sort: number) => {
+    if (sort <= 0 || sort > 2) {
+      setSortIndex(0);
+    } else {
+      setSortIndex(sort);
+    }
+  };
 
   return (
-    <View sx={{ width: '100%', height: '100%' }}>
-      {/* Header Row */}
-      <Pressable
+    <View
+      sx={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: '$backgroundWhite',
+        paddingX: 16,
+      }}
+    >
+      {/* Header */}
+      <Header />
+
+      {/* Expansion Selection */}
+      <SegmentedControl
+        title={'Expac:'}
+        index={expacIndex}
+        handleChange={(newIndex) => handleSelectExpac(newIndex)}
+        values={['All', 'ARR', 'HW', 'SB', 'ShB', 'EW', 'DT']}
+      />
+
+      {/* Sort Selection */}
+      <SegmentedControl
+        title={'Sort By:'}
+        index={sortIndex}
+        handleChange={(newIndex) => handleSelectSort(newIndex)}
+        values={['NAME', 'TIME', 'ZONE']}
+      />
+
+      <View
         sx={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          height: 1,
+          width: '100%',
+          backgroundColor: '$lightGray',
+          marginY: 6,
         }}
-      >
-        <View sx={{ flexDirection: 'row' }}>
-          <ChevronLeft />
-          <Text sx={{ fontSize: 16, fontWeight: 'bold' }}>Back</Text>
-        </View>
-      </Pressable>
+      />
+
+      <SearchBar
+        searchText={searchText}
+        setSearchText={setSearchText}
+        handleChange={(text) => setSearchText(text)}
+      />
     </View>
   );
 };
