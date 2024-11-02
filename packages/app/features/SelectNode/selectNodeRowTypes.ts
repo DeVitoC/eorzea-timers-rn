@@ -1,19 +1,20 @@
 export interface Node {
-  id: number;
-  name: string;
-  time?: number;
-  duration?: number;
-  location: string;
-  img: string;
+  // General Props
   description: string;
-  type: string;
-  source: string;
-  lvl: number;
-  stars: number;
   x: number;
   y: number;
+  lvl: number;
+  img: string;
   expac: number;
-  gathering: number;
+  location: string;
+  stars: number;
+  type: string;
+  name: string;
+  time?: number;
+  // Fishing props
+  duration?: number;
+  source?: string;
+  gathering?: number;
   desynthLvl?: number;
   desynthJob?: string
   mooch?: boolean
