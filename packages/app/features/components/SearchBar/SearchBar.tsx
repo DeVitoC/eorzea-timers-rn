@@ -1,19 +1,14 @@
 import { Pressable, TextInput, View } from 'dripsy';
 import { StyleSheet } from 'react-native';
 import { MagnifyingGlass, XCircle } from '@nandorojo/heroicons/20/solid';
+import { useState } from 'react';
 
 interface Props {
-  searchText: string;
-  setSearchText: (text: string) => void;
   handleChange: (text: string) => void;
 }
 
-const SearchBar: React.FC<Props> = ({
-  searchText,
-  setSearchText,
-  handleChange,
-}) => {
-  console.log(searchText);
+const SearchBar: React.FC<Props> = ({ handleChange }) => {
+  const [searchText, setSearchText] = useState('');
 
   return (
     <View sx={styles.container}>
@@ -22,13 +17,19 @@ const SearchBar: React.FC<Props> = ({
         sx={styles.searchInput}
         placeholder="Search..."
         value={searchText}
-        onChangeText={handleChange} // Update search text
+        onChangeText={(value) => {
+          setSearchText(value);
+          handleChange(value);
+        }}
       />
 
       {searchText?.length > 0 && (
         <Pressable
           sx={{ position: 'absolute', right: 10 }}
-          onPress={() => setSearchText('')}
+          onPress={() => {
+            setSearchText('');
+            handleChange('');
+          }}
         >
           <XCircle color={'gray'} />
         </Pressable>

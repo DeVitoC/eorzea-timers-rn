@@ -61,6 +61,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
         values={['NAME', 'TIME', 'ZONE']}
       />
 
+      <SearchBar handleChange={(text) => handleSearchText(text)} />
       <View
         sx={{
           height: 1,
@@ -70,10 +71,6 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
         }}
       />
 
-      <SearchBar
-        searchText={searchText}
-        setSearchText={setSearchText}
-        handleChange={(text) => setSearchText(text)}
       />
     </View>
   );
