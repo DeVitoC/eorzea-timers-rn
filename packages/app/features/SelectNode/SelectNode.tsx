@@ -1,18 +1,36 @@
 import { useEffect, useState } from 'react';
-import { FlatList, View } from 'dripsy';
-import { Node } from 'app/features/SelectNode/SelectNodeTypes';
+import { FlatList, Pressable, View } from 'dripsy';
+import { Node } from 'app/features/SelectNode/selectNodeRowTypes';
 import { useRouter } from 'solito/router';
 import Header from 'app/features/components/Header/Header';
 import SegmentedControl from 'app/features/components/SegmentedControl/SegmentedControl';
 import SearchBar from 'app/features/components/SearchBar/SearchBar';
+import { Cog6Tooth } from '@nandorojo/heroicons/24/solid';
+import SelectNodeRow from 'app/features/SelectNode/SelectNodeRow';
 
 interface SelectNodesProps {
-  profession: string;
+  profession: 'botany' | 'mining' | 'fishing';
+}
+
+interface Settings {
+  searchText: string;
+  expacIndex: number;
+  sortIndex: number;
 }
 
 const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
-  const [nodes, setNodes] = useState<Node[]>([]);
-  const [searchText, setSearchText] = useState<string>('');
+  const nodeList =
+    profession === 'botany'
+      ? require('app/features/Data/botany.json')
+      : profession === 'mining'
+      ? require('app/features/Data/mining.json')
+      : require('app/features/Data/fishing.json');
+  const [settings, setSettings] = useState<Settings>({
+    searchText: '',
+    expacIndex: 0,
+    sortIndex: 0,
+  });
+  const [currentNodes, setCurrentNodes] = useState<Node[]>(nodeList);
   const [expacIndex, setExpacIndex] = useState(0);
   const [sortIndex, setSortIndex] = useState(0);
   const { push } = useRouter();
@@ -33,6 +51,20 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
     }
   };
 
+  const handleSearchText = (text: string) => {
+    var nodes = nodeList.filter((node: Node) => {
+      return (
+        node.name.toLowerCase().includes(text.toLowerCase()) ||
+        node.description.toLowerCase().includes(text.toLowerCase())
+      );
+    });
+    setCurrentNodes(nodes);
+    setSettings((prevSettings) => ({
+      ...prevSettings,
+      searchText: text,
+    }));
+  };
+
   return (
     <View
       sx={{
@@ -46,21 +78,46 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
       <Header />
 
       {/* Expansion Selection */}
-      <SegmentedControl
-        title={'Expac:'}
-        index={expacIndex}
-        handleChange={(newIndex) => handleSelectExpac(newIndex)}
-        values={['All', 'ARR', 'HW', 'SB', 'ShB', 'EW', 'DT']}
-      />
+      <View sx={{ marginTop: 16 }}>
+        <SegmentedControl
+          title={'Expac:'}
+          index={expacIndex}
+          handleChange={(newIndex) => handleSelectExpac(newIndex)}
+          values={['All', 'ARR', 'HW', 'SB', 'ShB', 'EW', 'DT']}
+        />
+      </View>
 
-      {/* Sort Selection */}
-      <SegmentedControl
-        title={'Sort By:'}
-        index={sortIndex}
-        handleChange={(newIndex) => handleSelectSort(newIndex)}
-        values={['NAME', 'TIME', 'ZONE']}
-      />
+      {/* Sort and filter Selection */}
+      <View
+        sx={{
+          flexDirection: 'row',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginTop: 10,
+        }}
+      >
+        <View sx={{ width: '80%' }}>
+          <SegmentedControl
+            title={'Sort By:'}
+            index={sortIndex}
+            handleChange={(newIndex) => handleSelectSort(newIndex)}
+            values={['NAME', 'TIME', 'ZONE']}
+          />
+        </View>
+        <Pressable onPress={() => {}}>
+          <Cog6Tooth color="#666" />
+        </Pressable>
+      </View>
 
+      <View
+        sx={{
+          height: 1,
+          width: '100%',
+          backgroundColor: '$lightGray',
+          marginY: 6,
+        }}
+      />
       <SearchBar handleChange={(text) => handleSearchText(text)} />
       <View
         sx={{
@@ -71,6 +128,11 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
         }}
       />
 
+      {/* Nodes List */}
+      <FlatList
+        data={currentNodes}
+        renderItem={({ item }) => <SelectNodeRow node={item as Node} />}
+        keyExtractor={(item: Node, index: number) => `${item.name}-${index}`}
       />
     </View>
   );
