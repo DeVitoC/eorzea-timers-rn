@@ -7,6 +7,7 @@ import SegmentedControl from 'app/features/components/SegmentedControl/Segmented
 import SearchBar from 'app/features/components/SearchBar/SearchBar';
 import { Cog6Tooth } from '@nandorojo/heroicons/24/solid';
 import SelectNodeRow from 'app/features/SelectNode/SelectNodeRow';
+import { secondsUntil } from 'app/features/SharedHooks/useTime';
 
 interface SelectNodesProps {
   profession: 'botany' | 'mining' | 'fishing';
@@ -35,36 +36,113 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
     sortIndex: 0,
     currentNodes: nodeList,
   });
-  const [sortIndex, setSortIndex] = useState(0);
   const { push } = useRouter();
+  const maxTimeUntil = 24 * (2 * 60 + 55);
+  const thresholdTIme = 21 * (2 * 60 + 55);
 
   const handleSelectExpac = (expac: number, nodes: Node[]): Node[] => {
-    if (expac <= 0 || expac > 6) {
-      return nodes;
-    } else {
-      return nodes.filter((node: Node) => node.expac === expac - 1);
-    }
+    return expac === 0
+      ? nodes.filter((node: Node) => true)
+      : nodes.filter((node: Node) => node.expac === expac - 1);
   };
 
   const handleSearchText = (text: string, nodes: Node[]): Node[] => {
-    var searchResults = nodes.filter((node: Node) => {
-      return (
-        node.name.toLowerCase().includes(text.toLowerCase()) ||
-        node.description.toLowerCase().includes(text.toLowerCase())
-      );
-    });
-    return searchResults;
+    if (!!text) {
+      var searchResults = nodes.filter((node: Node) => {
+        return node.name.toLowerCase().includes(text.toLowerCase());
+      });
+      return searchResults;
+    } else {
+      return nodes;
+    }
   };
 
-  const handleSelectSort = (sort: number) => {
-    if (sort <= 0 || sort > 2) {
-      setSettings((prevSettings) => ({
-        ...prevSettings,
-        sortIndex: 0,
-        currentNodes: nodeList,
-      }));
-    } else {
-      setSortIndex(sort);
+  const sortByName = (a: Node, b: Node): number => {
+    const nameComparison = a.name.localeCompare(b.name);
+    return nameComparison;
+  };
+
+  const sortBytime = (a: Node, b: Node): number => {
+    const aTime = a.time;
+    const bTime = b.time;
+
+    if (aTime === undefined && bTime === undefined) return 0;
+    if (!!aTime && bTime === undefined) return -1;
+    if (aTime === undefined && !!bTime) return 1;
+
+    if (aTime === bTime) {
+      return 0;
+    }
+    const timeUntilA = secondsUntil(aTime!);
+    const timeUntilB = secondsUntil(bTime!);
+    const isAAvailable =
+      timeUntilA <= maxTimeUntil && timeUntilA >= thresholdTIme;
+    const isBAvailable =
+      timeUntilB <= maxTimeUntil && timeUntilB >= thresholdTIme;
+
+    // Check if only one or the other is currently available
+    if (isAAvailable && !isBAvailable) return -1;
+    if (!isAAvailable && isBAvailable) return 1;
+
+    return timeUntilA - timeUntilB;
+  };
+
+  const sortByLocation = (a: Node, b: Node): number => {
+    return a.location.localeCompare(b.location);
+  };
+
+  const handleSelectSort = (sort: number, nodes: Node[]): Node[] => {
+    var newNodes = nodes;
+    console.log('starting to sort: ', nodes.length);
+    switch (sort) {
+      case 0:
+        newNodes = newNodes.sort((a: Node, b: Node) => {
+          // Sort by name first and return if names don't match
+          const nameComparison = sortByName(a, b);
+          if (nameComparison !== 0) return nameComparison;
+
+          // Sort by times if names are the same
+          // Sort items with time first and items without times after
+          const timeComparison = sortBytime(a, b);
+          if (timeComparison !== 0) return timeComparison;
+
+          // If neither has a time or times are the same, sort by location
+          return sortByLocation(a, b);
+        });
+        return newNodes;
+      case 1:
+        newNodes = newNodes.sort((a: Node, b: Node) => {
+          // Sort by Time first
+          const timeComparison = sortBytime(a, b);
+          if (timeComparison !== 0) return timeComparison;
+
+          // Sort by Name second
+          const nameComparison = sortByName(a, b);
+          if (nameComparison !== 0) return nameComparison;
+
+          // Sort by location last
+          return sortByLocation(a, b);
+        });
+
+        return newNodes;
+      case 2:
+        newNodes = newNodes.sort((a: Node, b: Node) => {
+          // Sort by location first
+          const locationComparison = sortByLocation(a, b);
+          // return locationComparison;
+          if (locationComparison !== 0) return locationComparison;
+
+          // Sort by Name second
+          const nameComparison = sortByName(a, b);
+          // return nameComparison;
+          if (nameComparison !== 0) return nameComparison;
+
+          // Sort by time last
+          return sortBytime(a, b);
+        });
+        return newNodes;
+      default:
+        return newNodes;
     }
   };
 
@@ -74,21 +152,22 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
       ...updates,
     };
     const { expacIndex, sortIndex, searchText } = newSettings;
-    var nodes = nodeList;
+    const nodes = nodeList;
 
     // filter by expac
-    nodes = handleSelectExpac(expacIndex, nodes);
+    const expacNodes = handleSelectExpac(expacIndex, nodes);
 
     // filter by search Text
-    if (!!searchText) {
-      nodes = handleSearchText(searchText, nodes);
-    }
+    const searchNodes = handleSearchText(searchText, expacNodes);
+
+    // sort based on sort index
+    const sortedNodes = handleSelectSort(sortIndex, searchNodes);
 
     setSettings({
       expacIndex: expacIndex,
       sortIndex: sortIndex,
       searchText: searchText,
-      currentNodes: nodes,
+      currentNodes: sortedNodes,
     });
   };
 
@@ -130,7 +209,9 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
           <SegmentedControl
             title={'Sort By:'}
             index={settings.sortIndex}
-            handleChange={(newIndex) => handleSelectSort(newIndex)}
+            handleChange={(newIndex) =>
+              handleSortAndSearch({ sortIndex: newIndex })
+            }
             values={['NAME', 'TIME', 'ZONE']}
           />
         </View>
