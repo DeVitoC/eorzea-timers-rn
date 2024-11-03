@@ -65,6 +65,100 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
     }));
   };
 
+  useEffect(() => {
+    var nodes = nodeList;
+
+    //   switch (sortIndex) {
+    //     case 0:
+    //       nodes = nodes.sort((a: Node, b: Node) => {
+    //         // Sort by name first and return if names don't match
+    //         const nameComparison = a.name.localeCompare(b.name);
+    //         if (nameComparison === 0) {
+    //           return nameComparison;
+    //         }
+
+    //         // Sort by times if names are the same
+    //         // Sort items with a time first and items without times after
+    //         const aHasTime = a.time !== undefined;
+    //         const bHasTime = b.time !== undefined;
+
+    //         if (aHasTime && !bHasTime) {
+    //           return -1;
+    //         }
+    //         if (!aHasTime && bHasTime) {
+    //           return 1;
+    //         }
+
+    //         if (aHasTime && bHasTime) {
+    //           return (a.time as number) - (b.time as number);
+    //         }
+
+    //         // Sort by location after name and time
+    //         return a.location.localeCompare(b.location);
+    //       });
+    //     case 1:
+    //     // nodes = nodes.sort((a: Node, b: Node) => {
+    //     //   // Sort by times if names are the same
+    //     //   // Sort items with a time first and items without times after
+    //     //   const aHasTime = a.time !== undefined;
+    //     //   const bHasTime = b.time !== undefined;
+
+    //     //   if (aHasTime && !bHasTime) {
+    //     //     return -1;
+    //     //   }
+    //     //   if (!aHasTime && bHasTime) {
+    //     //     return 1;
+    //     //   }
+
+    //     //   if (aHasTime && bHasTime) {
+    //     //     return (a.time as number) - (b.time as number);
+    //     //   }
+
+    //     //   // Sort by name first and return if names don't match
+    //     //   const nameComparison = a.name.localeCompare(b.name);
+    //     //   if (nameComparison === 0) {
+    //     //     return nameComparison;
+    //     //   }
+
+    //     //   // Sort by location after name and time
+    //     //   return a.location.localeCompare(b.location);
+    //     // });
+    //     case 2:
+    //     // nodes = nodes.sort((a: Node, b: Node) => {
+    //     //   // Sort by location after name and time
+    //     //   const locationComparison = a.location.localeCompare(b.location);
+    //     //   if (locationComparison === 0) {
+    //     //     return locationComparison;
+    //     //   }
+
+    //     //   // Sort by name first and return if names don't match
+    //     //   const nameComparison = a.name.localeCompare(b.name);
+    //     //   if (nameComparison === 0) {
+    //     //     return nameComparison;
+    //     //   }
+
+    //     //   // Sort by times if names are the same
+    //     //   // Sort items with a time first and items without times after
+    //     //   const aHasTime = a.time !== undefined;
+    //     //   const bHasTime = b.time !== undefined;
+
+    //     //   if (aHasTime && !bHasTime) {
+    //     //     return -1;
+    //     //   }
+    //     //   if (!aHasTime && bHasTime) {
+    //     //     return 1;
+    //     //   }
+
+    //     //   if (aHasTime && bHasTime) {
+    //     //     return (a.time as number) - (b.time as number);
+    //     //   }
+    //     // });
+    //     default:
+    //       break;
+    //   }
+    // setCurrentNodes(nodes);
+  }, [settings]);
+
   return (
     <View
       sx={{
