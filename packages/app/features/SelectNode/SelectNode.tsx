@@ -16,53 +16,80 @@ interface Settings {
   searchText: string;
   expacIndex: number;
   sortIndex: number;
+  currentNodes: Node[];
 }
 
 const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
-  const nodeList =
+  const nodeList = (
     profession === 'botany'
       ? require('app/features/Data/botany.json')
       : profession === 'mining'
       ? require('app/features/Data/mining.json')
-      : require('app/features/Data/fishing.json');
+      : require('app/features/Data/fishing.json')
+  ).sort((a: Node, b: Node) => {
+    return a.name.localeCompare(b.name);
+  });
   const [settings, setSettings] = useState<Settings>({
     searchText: '',
     expacIndex: 0,
     sortIndex: 0,
+    currentNodes: nodeList,
   });
-  const [currentNodes, setCurrentNodes] = useState<Node[]>(nodeList);
-  const [expacIndex, setExpacIndex] = useState(0);
   const [sortIndex, setSortIndex] = useState(0);
   const { push } = useRouter();
 
-  const handleSelectExpac = (expac: number) => {
+  const handleSelectExpac = (expac: number, nodes: Node[]): Node[] => {
     if (expac <= 0 || expac > 6) {
-      setExpacIndex(0);
+      return nodes;
     } else {
-      setExpacIndex(expac);
+      return nodes.filter((node: Node) => node.expac === expac - 1);
     }
   };
 
-  const handleSelectSort = (sort: number) => {
-    if (sort <= 0 || sort > 2) {
-      setSortIndex(0);
-    } else {
-      setSortIndex(sort);
-    }
-  };
-
-  const handleSearchText = (text: string) => {
-    var nodes = nodeList.filter((node: Node) => {
+  const handleSearchText = (text: string, nodes: Node[]): Node[] => {
+    var searchResults = nodes.filter((node: Node) => {
       return (
         node.name.toLowerCase().includes(text.toLowerCase()) ||
         node.description.toLowerCase().includes(text.toLowerCase())
       );
     });
-    setCurrentNodes(nodes);
-    setSettings((prevSettings) => ({
-      ...prevSettings,
-      searchText: text,
-    }));
+    return searchResults;
+  };
+
+  const handleSelectSort = (sort: number) => {
+    if (sort <= 0 || sort > 2) {
+      setSettings((prevSettings) => ({
+        ...prevSettings,
+        sortIndex: 0,
+        currentNodes: nodeList,
+      }));
+    } else {
+      setSortIndex(sort);
+    }
+  };
+
+  const handleSortAndSearch = (updates: Partial<Settings>) => {
+    const newSettings = {
+      ...settings,
+      ...updates,
+    };
+    const { expacIndex, sortIndex, searchText } = newSettings;
+    var nodes = nodeList;
+
+    // filter by expac
+    nodes = handleSelectExpac(expacIndex, nodes);
+
+    // filter by search Text
+    if (!!searchText) {
+      nodes = handleSearchText(searchText, nodes);
+    }
+
+    setSettings({
+      expacIndex: expacIndex,
+      sortIndex: sortIndex,
+      searchText: searchText,
+      currentNodes: nodes,
+    });
   };
 
   useEffect(() => {
@@ -175,8 +202,10 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
       <View sx={{ marginTop: 16 }}>
         <SegmentedControl
           title={'Expac:'}
-          index={expacIndex}
-          handleChange={(newIndex) => handleSelectExpac(newIndex)}
+          index={settings.expacIndex}
+          handleChange={(newIndex) =>
+            handleSortAndSearch({ expacIndex: newIndex })
+          }
           values={['All', 'ARR', 'HW', 'SB', 'ShB', 'EW', 'DT']}
         />
       </View>
@@ -194,7 +223,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
         <View sx={{ width: '80%' }}>
           <SegmentedControl
             title={'Sort By:'}
-            index={sortIndex}
+            index={settings.sortIndex}
             handleChange={(newIndex) => handleSelectSort(newIndex)}
             values={['NAME', 'TIME', 'ZONE']}
           />
@@ -212,7 +241,9 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
           marginY: 6,
         }}
       />
-      <SearchBar handleChange={(text) => handleSearchText(text)} />
+      <SearchBar
+        handleChange={(text) => handleSortAndSearch({ searchText: text })}
+      />
       <View
         sx={{
           height: 1,
@@ -224,7 +255,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
 
       {/* Nodes List */}
       <FlatList
-        data={currentNodes}
+        data={settings.currentNodes}
         renderItem={({ item }) => <SelectNodeRow node={item as Node} />}
         keyExtractor={(item: Node, index: number) => `${item.name}-${index}`}
       />
