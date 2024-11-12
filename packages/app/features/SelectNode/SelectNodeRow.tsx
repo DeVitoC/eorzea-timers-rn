@@ -18,7 +18,6 @@ const SelectNodeRow: React.FC<SelectNodeRowProps> = ({ node }) => {
     setupLayout();
 
     return () => {
-      // Cleanup timer on unmount
       if (timer) {
         clearInterval(timer);
       }
@@ -99,8 +98,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    marginVertical: 5,
-    borderRadius: 8,
   },
   nodeImg: {
     width: 40,

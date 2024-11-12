@@ -193,14 +193,14 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
         width: '100%',
         height: '100%',
         backgroundColor: '$backgroundWhite',
-        paddingX: 16,
+        // paddingX: 16,
       }}
     >
       {/* Header */}
       <Header />
 
       {/* Expansion Selection */}
-      <View sx={{ marginTop: 16 }}>
+      <View sx={{ marginTop: 16, paddingX: 16 }}>
         <SegmentedControl
           title={'Expac:'}
           index={settings.expacIndex}
@@ -219,6 +219,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
           alignItems: 'center',
           justifyContent: 'space-between',
           marginTop: 10,
+          paddingX: 16,
         }}
       >
         <View sx={{ width: '80%' }}>
