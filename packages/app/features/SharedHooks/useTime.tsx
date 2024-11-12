@@ -100,10 +100,8 @@ const formatTimeDifference = (seconds: number) => {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = Math.floor(seconds % 60);
   if (minutes > 0) {
-    return `${minutes} minute${
-      minutes !== 1 ? 's' : ''
-    } ${remainingSeconds} second${remainingSeconds !== 1 ? 's' : ''}`;
+    return `${minutes} min`;
   } else {
-    return `${remainingSeconds} second${remainingSeconds !== 1 ? 's' : ''}`;
+    return `${remainingSeconds} sec`;
   }
 };
