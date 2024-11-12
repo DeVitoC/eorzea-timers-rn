@@ -171,6 +171,22 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
     });
   };
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
+
+    if (settings.sortIndex === 1) {
+      timer = setInterval(() => {
+        handleSortAndSearch({});
+      }, 5000);
+    }
+
+    return () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
+  }, [settings.sortIndex, handleSortAndSearch]);
+
   return (
     <View
       sx={{
