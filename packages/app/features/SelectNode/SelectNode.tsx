@@ -261,7 +261,10 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
       <FlatList
         data={settings.currentNodes}
         renderItem={({ item }) => <SelectNodeRow node={item as Node} />}
-        keyExtractor={(item: Node, index: number) => `${item.name}-${index}`}
+        keyExtractor={(item: unknown, index: number) => {
+          const node = item as Node;
+          return `${node.name}-${index}`;
+        }}
       />
     </View>
   );
