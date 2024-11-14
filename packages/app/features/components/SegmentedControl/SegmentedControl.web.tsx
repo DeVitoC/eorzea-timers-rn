@@ -1,7 +1,14 @@
 import { Text, View } from 'dripsy';
 import { StyleSheet } from 'react-native';
-import SegmentedControlRN from '@react-native-segmented-control/segmented-control';
+import { SegmentedControl as SegmentedControlWeb } from 'segmented-control';
 import { SegmentedControlParams } from 'app/features/components/SegmentedControl/SegmentedControl';
+
+interface Option {
+  label: string;
+  value: number;
+  disabled: boolean;
+  default: boolean;
+}
 
 const SegmentedControl: React.FC<SegmentedControlParams> = ({
   title,
@@ -9,15 +16,22 @@ const SegmentedControl: React.FC<SegmentedControlParams> = ({
   values,
   handleChange,
 }) => {
+  const options: Option[] = values.map((value, indexNum) => ({
+    label: value.toUpperCase(),
+    value: indexNum,
+    disabled: indexNum !== index,
+    default: indexNum === 0,
+  }));
   return (
     <View sx={styles.container}>
       <Text sx={styles.label}>{title}</Text>
-      <SegmentedControlRN
-        values={values}
-        selectedIndex={index}
-        onChange={(event) =>
-          handleChange(event.nativeEvent.selectedSegmentIndex)
-        }
+      <SegmentedControlWeb
+        name="oneDisabled"
+        options={options}
+        setValue={(value) => handleChange(value)}
+        // onChange={(event) =>
+        //   handleChange(event.nativeEvent.selectedSegmentIndex)
+        // }
         style={styles.segmentedControl}
       />
     </View>
