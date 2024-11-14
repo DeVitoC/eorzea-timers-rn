@@ -1,13 +1,7 @@
 import { Text, View } from 'dripsy';
 import { StyleSheet } from 'react-native';
 import SegmentedControlRN from '@react-native-segmented-control/segmented-control';
-
-interface SegmentedControlParams {
-  title: string;
-  index: number;
-  values: string[];
-  handleChange: (selectedIndex: number) => void;
-}
+import { SegmentedControlParams } from 'app/features/components/SegmentedControl/SegmentedControl';
 
 const SegmentedControl: React.FC<SegmentedControlParams> = ({
   title,
@@ -17,9 +11,7 @@ const SegmentedControl: React.FC<SegmentedControlParams> = ({
 }) => {
   return (
     <View sx={styles.container}>
-      <Text sx={styles.label}>
-        {title}
-      </Text>
+      <Text sx={styles.label}>{title}</Text>
       <SegmentedControlRN
         values={values}
         selectedIndex={index}
