@@ -185,7 +185,8 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
         clearInterval(timer);
       }
     };
-  }, [settings.sortIndex, handleSortAndSearch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [settings.sortIndex, settings.expacIndex, settings.searchText]);
 
   return (
     <View
@@ -193,7 +194,6 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
         width: '100%',
         height: '100%',
         backgroundColor: '$backgroundWhite',
-        // paddingX: 16,
       }}
     >
       {/* Header */}
