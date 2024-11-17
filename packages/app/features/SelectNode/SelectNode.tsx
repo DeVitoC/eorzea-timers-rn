@@ -4,7 +4,7 @@ import { Node } from 'app/features/SelectNode/selectNodeRowTypes';
 // import { useRouter } from 'solito/router';
 import Header from 'app/features/components/Header/Header';
 import SegmentedControl from 'app/features/components/SegmentedControl/SegmentedControl';
-// import SearchBar from 'app/features/components/SearchBar/SearchBar';
+import SearchBar from 'app/features/components/SearchBar/SearchBar';
 import Gear from 'app/assets/gear.svg';
 // import SelectNodeRow from 'app/features/SelectNode/SelectNodeRow';
 import { secondsUntil } from 'app/features/SharedHooks/useTime';
@@ -272,7 +272,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
         </Pressable>
       </View>
 
-      {/* <View
+      <View
         sx={{
           height: 1,
           width: '100%',
@@ -290,7 +290,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
           backgroundColor: '$lightGray',
           marginY: 6,
         }}
-      /> */}
+      />
 
       {/* Nodes List */}
       {/* <FlatList

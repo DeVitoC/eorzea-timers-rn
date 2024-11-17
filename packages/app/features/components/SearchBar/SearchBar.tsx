@@ -1,7 +1,9 @@
 import { Pressable, TextInput, View } from 'dripsy';
 import { StyleSheet } from 'react-native';
-import { MagnifyingGlass, XCircle } from '@nandorojo/heroicons/20/solid';
+import MagnifyingGlass from 'app/assets/magnifiying-glass.svg';
+import XCircle from 'app/assets/circle-quarters.svg';
 import { useState } from 'react';
+import { SolitoImage } from 'solito/image';
 
 interface Props {
   handleChange: (text: string) => void;
@@ -12,7 +14,15 @@ const SearchBar: React.FC<Props> = ({ handleChange }) => {
 
   return (
     <View sx={styles.container}>
-      <MagnifyingGlass color={'gray'} />
+      <SolitoImage
+        src={MagnifyingGlass}
+        height={24}
+        width={24}
+        alt="magnifying glass"
+        contentFit={'contain'}
+        resizeMode={'contain'}
+        onLayout={() => {}}
+      />
       <TextInput
         sx={styles.searchInput}
         placeholder="Search..."
@@ -31,7 +41,15 @@ const SearchBar: React.FC<Props> = ({ handleChange }) => {
             handleChange('');
           }}
         >
-          <XCircle color={'gray'} />
+          <SolitoImage
+            src={XCircle}
+            height={24}
+            width={24}
+            alt="cancel"
+            contentFit={'contain'}
+            resizeMode={'contain'}
+            onLayout={() => {}}
+          />
         </Pressable>
       )}
     </View>
