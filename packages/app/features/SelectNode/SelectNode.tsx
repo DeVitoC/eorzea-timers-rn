@@ -5,12 +5,10 @@ import { Node } from 'app/features/SelectNode/selectNodeRowTypes';
 import Header from 'app/features/components/Header/Header';
 import SegmentedControl from 'app/features/components/SegmentedControl/SegmentedControl';
 // import SearchBar from 'app/features/components/SearchBar/SearchBar';
-// import { Cog6Tooth } from '@nandorojo/heroicons/24/solid';
+import Gear from 'app/assets/gear.svg';
 // import SelectNodeRow from 'app/features/SelectNode/SelectNodeRow';
 import { secondsUntil } from 'app/features/SharedHooks/useTime';
-// import BotanyNodes from 'app/features/Data/botany.json';
-// import MiningNodes from 'app/features/Data/mining.json';
-// import FishingNodes from 'app/features/Data/fishing.json';
+import { SolitoImage } from 'solito/image';
 
 interface SelectNodesProps {
   profession: 'botany' | 'mining' | 'fishing';
@@ -46,14 +44,6 @@ const loadNodeList = async (profession: string) => {
 
 const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
   const [nodeList, setNodeList] = useState<Node[]>([]);
-  // const nodeList =
-  //   profession === 'botany'
-  //     ? BotanyNodes
-  //     : profession === 'mining'
-  //     ? MiningNodes
-  //     : profession === 'fishing'
-  //     ? FishingNodes
-  //     : [];
   const [settings, setSettings] = useState<Settings>({
     searchText: '',
     expacIndex: 0,
@@ -249,7 +239,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
       </View>
 
       {/* Sort and filter Selection */}
-      {/* <View
+      <View
         sx={{
           flexDirection: 'row',
           width: '100%',
@@ -270,9 +260,17 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
           />
         </View>
         <Pressable onPress={() => {}}>
-          <Cog6Tooth color="#666" />
+          <SolitoImage
+            src={Gear}
+            height={24}
+            width={24}
+            alt="settings"
+            contentFit={'contain'}
+            resizeMode={'contain'}
+            onLayout={() => {}}
+          />
         </Pressable>
-      </View> */}
+      </View>
 
       {/* <View
         sx={{
