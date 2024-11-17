@@ -1,9 +1,9 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'dripsy';
-// import { ChevronLeft } from '@nandorojo/heroicons/24/solid';
-const { ChevronLeft } = require('@nandorojo/heroicons/24/solid');
 import { useRouter } from 'solito/router';
 import { updateTime } from 'app/features/SharedHooks/useTime';
+import ChevronLeft from 'app/assets/chevronleft.svg';
+import { SolitoImage } from 'solito/image';
 
 interface TimeDisplayProps {
   eorzeaTime: string;
@@ -31,6 +31,7 @@ const Header = () => {
     const timer = setInterval(updateTimer, 100);
 
     return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -52,7 +53,15 @@ const Header = () => {
         }}
         onPress={() => back()}
       >
-        <ChevronLeft />
+        <SolitoImage
+          src={ChevronLeft}
+          height={24}
+          width={24}
+          alt="back button"
+          contentFit={'contain'}
+          resizeMode={'contentFit'}
+          onLayout={() => {}}
+        />
         <Text
           sx={{
             fontSize: 16,
