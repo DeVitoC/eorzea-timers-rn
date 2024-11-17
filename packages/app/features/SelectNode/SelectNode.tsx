@@ -2,7 +2,7 @@
 import { FlatList, Pressable, View } from 'dripsy';
 // import { Node } from 'app/features/SelectNode/selectNodeRowTypes';
 // import { useRouter } from 'solito/router';
-import Header from 'app/features/components/Header/Header';
+// import Header from 'app/features/components/Header/Header';
 // import SegmentedControl from 'app/features/components/SegmentedControl/SegmentedControl';
 // import SearchBar from 'app/features/components/SearchBar/SearchBar';
 // import { Cog6Tooth } from '@nandorojo/heroicons/24/solid';
@@ -234,7 +234,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
       }}
     >
       {/* Header */}
-      <Header />
+      {/* <Header /> */}
 
       {/* Expansion Selection */}
       {/* <View sx={{ marginTop: 16, paddingX: 16 }}>
