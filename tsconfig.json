@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
       "app/*": ["./packages/app/*"]
     },
-    "resolveJsonModule": true,
-    "target": "ESNext",
-    "module": "ESNext",
-    "esModuleInterop": true,
-    "jsx": "preserve"
+    "resolveJsonModule": true
   },
   "extends": "expo/tsconfig.base"
 }
