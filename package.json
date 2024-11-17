@@ -1,5 +1,5 @@
 {
-  "name": "solito-expo-router",
+  "name": "eorzea-timers",
   "private": true,
   "workspaces": [
     "apps/*",

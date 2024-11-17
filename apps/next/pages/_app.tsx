@@ -1,19 +1,19 @@
-import 'raf/polyfill'
-import 'setimmediate'
+import 'raf/polyfill';
+import 'setimmediate';
 
-import { Provider } from 'app/provider'
-import Head from 'next/head'
-import React from 'react'
-import type { SolitoAppProps } from 'solito'
+import { Provider } from 'app/provider';
+import Head from 'next/head';
+import React from 'react';
+import type { SolitoAppProps } from 'solito';
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   return (
     <>
       <Head>
-        <title>Solito Example App</title>
+        <title>Eorzea Timers</title>
         <meta
           name="description"
-          content="Expo + Next.js with Solito. By Fernando Rojo."
+          content="Tracking all gathering items from Final Fantasy XIV."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
         <Component {...pageProps} />
       </Provider>
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

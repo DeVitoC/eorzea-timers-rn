@@ -8,6 +8,9 @@ import SearchBar from 'app/features/components/SearchBar/SearchBar';
 import { Cog6Tooth } from '@nandorojo/heroicons/24/solid';
 import SelectNodeRow from 'app/features/SelectNode/SelectNodeRow';
 import { secondsUntil } from 'app/features/SharedHooks/useTime';
+import BotanyNodes from 'app/features/Data/botany.json';
+import MiningNodes from 'app/features/Data/mining.json';
+import FishingNodes from 'app/features/Data/fishing.json';
 
 interface SelectNodesProps {
   profession: 'botany' | 'mining' | 'fishing';
@@ -20,29 +23,37 @@ interface Settings {
   currentNodes: Node[];
 }
 
-const loadNodeList = async (profession: string) => {
-  let nodeList: Node[];
-  if (profession === 'botany') {
-    const botanyData = await import('app/features/Data/botany.json');
-    nodeList = botanyData.default;
-  } else if (profession === 'mining') {
-    const miningData = await import('app/features/Data/mining.json');
-    nodeList = miningData.default;
-  } else if (profession === 'fishing') {
-    const fishingData = await import('app/features/Data/fishing.json');
-    nodeList = fishingData.default;
-  } else {
-    return [];
-  }
+// const loadNodeList = async (profession: string) => {
+//   let nodeList: Node[];
+//   if (profession === 'botany') {
+//     const botanyData = await import('app/features/Data/botany.json');
+//     nodeList = botanyData.default;
+//   } else if (profession === 'mining') {
+//     const miningData = await import('app/features/Data/mining.json');
+//     nodeList = miningData.default;
+//   } else if (profession === 'fishing') {
+//     const fishingData = await import('app/features/Data/fishing.json');
+//     nodeList = fishingData.default;
+//   } else {
+//     return [];
+//   }
 
-  nodeList = nodeList.sort((a: Node, b: Node) => {
-    return a.name.localeCompare(b.name);
-  });
-  return nodeList;
-};
+//   nodeList = nodeList.sort((a: Node, b: Node) => {
+//     return a.name.localeCompare(b.name);
+//   });
+//   return nodeList;
+// };
 
 const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
-  const [nodeList, setNodeList] = useState<Node[]>([]);
+  // const [nodeList, setNodeList] = useState<Node[]>([]);
+  const nodeList =
+    profession === 'botany'
+      ? BotanyNodes
+      : profession === 'mining'
+      ? MiningNodes
+      : profession === 'fishing'
+      ? FishingNodes
+      : [];
   const [settings, setSettings] = useState<Settings>({
     searchText: '',
     expacIndex: 0,
@@ -53,18 +64,18 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
   const maxTimeUntil = 24 * (2 * 60 + 55);
   const thresholdTIme = 21 * (2 * 60 + 55);
 
-  useEffect(() => {
-    const fetchNodeList = async () => {
-      const nodeList = await loadNodeList(profession);
-      setNodeList(nodeList);
-      setSettings((prevSettings) => ({
-        ...prevSettings,
-        currentNodes: nodeList,
-      }));
-    };
+  // useEffect(() => {
+  //   const fetchNodeList = async () => {
+  //     const nodeList = await loadNodeList(profession);
+  //     setNodeList(nodeList);
+  //     setSettings((prevSettings) => ({
+  //       ...prevSettings,
+  //       currentNodes: nodeList,
+  //     }));
+  //   };
 
-    fetchNodeList();
-  }, [profession]);
+  //   fetchNodeList();
+  // }, [profession]);
 
   const handleSelectExpac = (expac: number, nodes: Node[]): Node[] => {
     return expac === 0
