@@ -20,16 +20,29 @@ interface Settings {
   currentNodes: Node[];
 }
 
-const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
-  const nodeList = (
-    profession === 'botany'
-      ? require('app/features/Data/botany.json')
-      : profession === 'mining'
-      ? require('app/features/Data/mining.json')
-      : require('app/features/Data/fishing.json')
-  ).sort((a: Node, b: Node) => {
+const loadNodeList = async (profession: string) => {
+  let nodeList: Node[];
+  if (profession === 'botany') {
+    const botanyData = await import('app/features/Data/botany.json');
+    nodeList = botanyData.default;
+  } else if (profession === 'mining') {
+    const miningData = await import('app/features/Data/mining.json');
+    nodeList = miningData.default;
+  } else if (profession === 'fishing') {
+    const fishingData = await import('app/features/Data/fishing.json');
+    nodeList = fishingData.default;
+  } else {
+    return [];
+  }
+
+  nodeList = nodeList.sort((a: Node, b: Node) => {
     return a.name.localeCompare(b.name);
   });
+  return nodeList;
+};
+
+const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
+  const [nodeList, setNodeList] = useState<Node[]>([]);
   const [settings, setSettings] = useState<Settings>({
     searchText: '',
     expacIndex: 0,
@@ -39,6 +52,19 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
   const { push } = useRouter();
   const maxTimeUntil = 24 * (2 * 60 + 55);
   const thresholdTIme = 21 * (2 * 60 + 55);
+
+  useEffect(() => {
+    const fetchNodeList = async () => {
+      const nodeList = await loadNodeList(profession);
+      setNodeList(nodeList);
+      setSettings((prevSettings) => ({
+        ...prevSettings,
+        currentNodes: nodeList,
+      }));
+    };
+
+    fetchNodeList();
+  }, [profession]);
 
   const handleSelectExpac = (expac: number, nodes: Node[]): Node[] => {
     return expac === 0

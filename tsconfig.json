@@ -5,7 +5,10 @@
     "paths": {
       "app/*": ["./packages/app/*"]
     },
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "target": "ES5",
+    "module": "ESNext",
+    "esModuleInterop": true
   },
   "extends": "expo/tsconfig.base"
 }
