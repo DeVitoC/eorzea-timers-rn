@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'dripsy';
-import { ChevronLeft } from '@nandorojo/heroicons/24/solid';
+// import { ChevronLeft } from '@nandorojo/heroicons/24/solid';
+const { ChevronLeft } = require('@nandorojo/heroicons/24/solid');
 import { useRouter } from 'solito/router';
 import { updateTime } from 'app/features/SharedHooks/useTime';
 
