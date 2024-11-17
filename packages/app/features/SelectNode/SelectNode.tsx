@@ -5,10 +5,11 @@ import { Node } from 'app/features/SelectNode/selectNodeRowTypes';
 import Header from 'app/features/components/Header/Header';
 import SegmentedControl from 'app/features/components/SegmentedControl/SegmentedControl';
 import SearchBar from 'app/features/components/SearchBar/SearchBar';
-import Gear from 'app/assets/gear.svg';
+// import Gear from 'app/assets/gear.svg';
 import SelectNodeRow from 'app/features/SelectNode/SelectNodeRow';
 import { secondsUntil } from 'app/features/SharedHooks/useTime';
-import { SolitoImage } from 'solito/image';
+// import { SolitoImage } from 'solito/image';
+import { useDevice } from 'app/provider/device';
 
 interface SelectNodesProps {
   profession: 'botany' | 'mining' | 'fishing';
@@ -53,6 +54,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
   // const { push } = useRouter();
   const maxTimeUntil = 24 * (2 * 60 + 55);
   const thresholdTIme = 21 * (2 * 60 + 55);
+  const { height } = useDevice();
 
   useEffect(() => {
     const fetchNodeList = async () => {
@@ -259,7 +261,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
             values={['NAME', 'TIME', 'ZONE']}
           />
         </View>
-        <Pressable onPress={() => {}}>
+        {/* <Pressable onPress={() => {}}>
           <SolitoImage
             src={Gear}
             height={24}
@@ -269,7 +271,7 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
             resizeMode={'contain'}
             onLayout={() => {}}
           />
-        </Pressable>
+        </Pressable> */}
       </View>
 
       <View
@@ -293,14 +295,22 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
       />
 
       {/* Nodes List */}
-      <FlatList
-        data={settings.currentNodes}
-        renderItem={({ item }) => <SelectNodeRow node={item as Node} />}
-        keyExtractor={(item: unknown, index: number) => {
-          const node = item as Node;
-          return `${node.name}-${index}`;
+      <View
+        sx={{
+          height: height - 190,
+          width: '100%',
         }}
-      />
+      >
+        <FlatList
+          data={settings.currentNodes}
+          renderItem={({ item }) => <SelectNodeRow node={item as Node} />}
+          keyExtractor={(item: unknown, index: number) => {
+            const node = item as Node;
+            return `${node.name}-${index}`;
+          }}
+          scrollEnabled={true}
+        />
+      </View>
     </View>
   );
 };

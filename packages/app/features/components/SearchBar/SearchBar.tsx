@@ -1,9 +1,9 @@
 import { Pressable, TextInput, View } from 'dripsy';
 import { StyleSheet } from 'react-native';
-import MagnifyingGlass from 'app/assets/magnifiying-glass.svg';
-import XCircle from 'app/assets/circle-quarters.svg';
+// import MagnifyingGlass from 'app/assets/magnifiying-glass.svg';
+// import XCircle from 'app/assets/circle-quarters.svg';
 import { useState } from 'react';
-import { SolitoImage } from 'solito/image';
+// import { SolitoImage } from 'solito/image';
 
 interface Props {
   handleChange: (text: string) => void;
@@ -14,7 +14,7 @@ const SearchBar: React.FC<Props> = ({ handleChange }) => {
 
   return (
     <View sx={styles.container}>
-      <SolitoImage
+      {/* <SolitoImage
         src={MagnifyingGlass}
         height={24}
         width={24}
@@ -22,7 +22,7 @@ const SearchBar: React.FC<Props> = ({ handleChange }) => {
         contentFit={'contain'}
         resizeMode={'contain'}
         onLayout={() => {}}
-      />
+      /> */}
       <TextInput
         sx={styles.searchInput}
         placeholder="Search..."
@@ -41,7 +41,7 @@ const SearchBar: React.FC<Props> = ({ handleChange }) => {
             handleChange('');
           }}
         >
-          <SolitoImage
+          {/* <SolitoImage
             src={XCircle}
             height={24}
             width={24}
@@ -49,7 +49,7 @@ const SearchBar: React.FC<Props> = ({ handleChange }) => {
             contentFit={'contain'}
             resizeMode={'contain'}
             onLayout={() => {}}
-          />
+          /> */}
         </Pressable>
       )}
     </View>

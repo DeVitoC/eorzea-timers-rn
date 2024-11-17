@@ -1,9 +1,9 @@
 import { Pressable, TextInput, View, Text } from 'dripsy';
 import { useState } from 'react';
-import Eye from 'app/assets/eye.svg';
-import EyeSlash from 'app/assets/eye-show.svg';
+// import Eye from 'app/assets/eye.svg';
+// import EyeSlash from 'app/assets/eye-show.svg';
 import FormInputBoxProps from 'app/features/components/FormInputBox/types';
-import { SolitoImage } from 'solito/image';
+// import { SolitoImage } from 'solito/image';
 
 export const FormInputBox: React.FC<FormInputBoxProps> = ({
   value, //required
@@ -106,7 +106,7 @@ export const FormInputBox: React.FC<FormInputBoxProps> = ({
             marginEnd: 8,
           }}
         >
-          {secureTextEntry &&
+          {/* {secureTextEntry &&
             (isSecure ? (
               <Pressable
                 onPress={() => {
@@ -139,7 +139,7 @@ export const FormInputBox: React.FC<FormInputBoxProps> = ({
                   onLayout={() => {}}
                 />
               </Pressable>
-            ))}
+            ))} */}
         </View>
       </View>
       {!!updatedValue && updatedValue.length !== 0 && (
