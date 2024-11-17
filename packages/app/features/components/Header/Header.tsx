@@ -1,6 +1,6 @@
 import { memo, useCallback, useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'dripsy';
-// import { ChevronLeft } from '@nandorojo/heroicons/24/solid';
+import { ChevronLeft } from '@nandorojo/heroicons/24/solid';
 import { useRouter } from 'solito/router';
 import { updateTime } from 'app/features/SharedHooks/useTime';
 
@@ -51,7 +51,7 @@ const Header = () => {
         }}
         onPress={() => back()}
       >
-        {/* <ChevronLeft /> */}
+        <ChevronLeft />
         <Text
           sx={{
             fontSize: 16,
