@@ -2743,15 +2743,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nandorojo/heroicons@npm:^0.3.0":
-  version: 0.3.0
-  resolution: "@nandorojo/heroicons@npm:0.3.0"
-  dependencies:
-    react-native-svg: ^13.1.0
-  checksum: e03d630b66aed6c5abb22076221d5151cf58a6534e14d4c5511f2db791b12de8f38e5f20bc36ea8bf143abc276391fedd1c56d1a7167c8d671c661696c207cbb
-  languageName: node
-  linkType: hard
-
 "@next/env@npm:13.4.19":
   version: 13.4.19
   resolution: "@next/env@npm:13.4.19"
@@ -5635,7 +5626,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "eorzea-timers@workspace:."
   dependencies:
-    "@nandorojo/heroicons": ^0.3.0
     "@prisma/client": ^5.21.1
     "@react-native-segmented-control/segmented-control": ^2.5.5
     "@types/jsonwebtoken": ^9
@@ -10673,19 +10663,6 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 3b592ff31d9dfde5e2ce967f85f3ad17a94f4f3bee2248a3dad9ec791e7cda72a431f86b468b3b2a70ebeffb49b462f8162668a58fb9ddabb10b5a369816850d
-  languageName: node
-  linkType: hard
-
-"react-native-svg@npm:^13.1.0":
-  version: 13.14.1
-  resolution: "react-native-svg@npm:13.14.1"
-  dependencies:
-    css-select: ^5.1.0
-    css-tree: ^1.1.3
-  peerDependencies:
-    react: "*"
-    react-native: "*"
-  checksum: 273f05f2cceabf09f3909f57108d10f56aeb38981146e5f7b72cdb8595fbfb524af891845d4240a629c2f91ed120ae603d9efd579f7fb88521769aec71811136
   languageName: node
   linkType: hard
 

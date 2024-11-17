@@ -1,7 +1,9 @@
 import { Pressable, TextInput, View, Text } from 'dripsy';
 import { useState } from 'react';
-import { Eye, EyeSlash } from '@nandorojo/heroicons/20/solid';
+import Eye from 'app/assets/eye.svg';
+import EyeSlash from 'app/assets/eye-show.svg';
 import FormInputBoxProps from 'app/features/components/FormInputBox/types';
+import { SolitoImage } from 'solito/image';
 
 export const FormInputBox: React.FC<FormInputBoxProps> = ({
   value, //required
@@ -111,7 +113,15 @@ export const FormInputBox: React.FC<FormInputBoxProps> = ({
                   setIsSecure(!isSecure);
                 }}
               >
-                <Eye width={24} height={24} color="white" />
+                <SolitoImage
+                  src={Eye}
+                  height={24}
+                  width={24}
+                  alt="open eye"
+                  resizeMode={'contain'}
+                  contentFit={'contain'}
+                  onLayout={() => {}}
+                />
               </Pressable>
             ) : (
               <Pressable
@@ -119,7 +129,15 @@ export const FormInputBox: React.FC<FormInputBoxProps> = ({
                   setIsSecure(!isSecure);
                 }}
               >
-                <EyeSlash width={24} height={24} color="white" />
+                <SolitoImage
+                  src={EyeSlash}
+                  height={24}
+                  width={24}
+                  alt="closed eye"
+                  resizeMode={'contain'}
+                  contentFit={'contain'}
+                  onLayout={() => {}}
+                />
               </Pressable>
             ))}
         </View>
@@ -141,7 +159,6 @@ export const FormInputBox: React.FC<FormInputBoxProps> = ({
       {!!errors && (
         <Text
           sx={{
-            // fontFamily: 'Poppins-R',
             fontSize: 12,
             color: 'red',
             paddingVertical: 4,

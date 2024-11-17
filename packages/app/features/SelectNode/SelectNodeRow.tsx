@@ -22,6 +22,7 @@ const SelectNodeRow: React.FC<SelectNodeRowProps> = ({ node }) => {
         clearInterval(timer);
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [node]);
 
   const setupLayout = () => {

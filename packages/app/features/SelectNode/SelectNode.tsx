@@ -6,7 +6,7 @@ import Header from 'app/features/components/Header/Header';
 import SegmentedControl from 'app/features/components/SegmentedControl/SegmentedControl';
 import SearchBar from 'app/features/components/SearchBar/SearchBar';
 import Gear from 'app/assets/gear.svg';
-// import SelectNodeRow from 'app/features/SelectNode/SelectNodeRow';
+import SelectNodeRow from 'app/features/SelectNode/SelectNodeRow';
 import { secondsUntil } from 'app/features/SharedHooks/useTime';
 import { SolitoImage } from 'solito/image';
 
@@ -293,14 +293,14 @@ const SelectNode: React.FC<SelectNodesProps> = ({ profession }) => {
       />
 
       {/* Nodes List */}
-      {/* <FlatList
+      <FlatList
         data={settings.currentNodes}
         renderItem={({ item }) => <SelectNodeRow node={item as Node} />}
         keyExtractor={(item: unknown, index: number) => {
           const node = item as Node;
           return `${node.name}-${index}`;
         }}
-      /> */}
+      />
     </View>
   );
 };
